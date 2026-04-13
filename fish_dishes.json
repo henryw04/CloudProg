@@ -1,0 +1,121 @@
+{
+  "dishes": {
+    "salmon_dish": [
+      {
+        "name": "Teriyaki Glazed Salmon",
+        "image_url": "https://picsum.photos/id/1016/600/400"
+      },
+      {
+        "name": "Lemon-Dill Baked Salmon",
+        "image_url": "https://picsum.photos/id/292/600/400"
+      }
+    ],
+    "trout_dish": [
+      {
+        "name": "Pan-Seared Trout with Brown Butter",
+        "image_url": "https://picsum.photos/id/870/600/400"
+      },
+      {
+        "name": "Herb-Crusted Baked Trout",
+        "image_url": "https://picsum.photos/id/201/600/400"
+      }
+    ],
+    "bass_dish": [
+      {
+        "name": "Blackened Bass Fillets",
+        "image_url": "https://picsum.photos/id/133/600/400"
+      },
+      {
+        "name": "Garlic Butter Bass",
+        "image_url": "https://picsum.photos/id/312/600/400"
+      }
+    ],
+    "tilapia_dish": [
+      {
+        "name": "Grilled Tilapia with Lemon & Herbs",
+        "image_url": "https://picsum.photos/id/1015/600/400"
+      },
+      {
+        "name": "Crispy Tilapia Tacos",
+        "image_url": "https://picsum.photos/id/292/600/400"
+      }
+    ],
+    "carp_dish": [
+      {
+        "name": "Sweet & Sour Carp",
+        "image_url": "https://picsum.photos/id/251/600/400"
+      },
+      {
+        "name": "Fried Carp with Ginger",
+        "image_url": "https://picsum.photos/id/870/600/400"
+      }
+    ],
+    "tuna_dish": [
+      {
+        "name": "Seared Ahi Tuna Steak",
+        "image_url": "https://picsum.photos/id/1016/600/400"
+      },
+      {
+        "name": "Spicy Tuna Bowl",
+        "image_url": "https://picsum.photos/id/292/600/400"
+      }
+    ],
+    "snapper_dish": [
+      {
+        "name": "Grilled Red Snapper",
+        "image_url": "https://picsum.photos/id/133/600/400"
+      },
+      {
+        "name": "Snapper Veracruz Style",
+        "image_url": "https://picsum.photos/id/312/600/400"
+      }
+    ],
+    "grouper_dish": [
+      {
+        "name": "Blackened Grouper Sandwich",
+        "image_url": "https://picsum.photos/id/1015/600/400"
+      },
+      {
+        "name": "Baked Grouper with Tomatoes",
+        "image_url": "https://picsum.photos/id/201/600/400"
+      }
+    ],
+    "catfish_dish": [
+      {
+        "name": "Southern Fried Catfish",
+        "image_url": "https://picsum.photos/id/870/600/400"
+      },
+      {
+        "name": "Catfish Po' Boy",
+        "image_url": "https://picsum.photos/id/292/600/400"
+      }
+    ]
+  },
+
+  "fish_to_dishes": {
+    "Salmo salar": "salmon_dish",
+    "Oncorhynchus tshawytscha": "salmon_dish",
+    "Oncorhynchus kisutch": "salmon_dish",
+    "Oncorhynchus mykiss": "trout_dish",
+    "Salmo trutta": "trout_dish",
+    "Salvelinus fontinalis": "trout_dish",
+    "Micropterus dolomieu": "bass_dish",
+    "Micropterus nigricans": "bass_dish",
+    "Micropterus salmoides": "bass_dish",
+    "Oreochromis aureus": "tilapia_dish",
+    "Oreochromis niloticus": "tilapia_dish",
+    "Tilapia sparrmanii": "tilapia_dish",
+    "Cyprinus carpio": "carp_dish",
+    "Ctenopharyngodon idella": "carp_dish",
+    "Hypophthalmichthys molitrix": "carp_dish",
+    "Thunnus albacares": "tuna_dish",
+    "Thunnus thynnus": "tuna_dish",
+    "Katsuwonus pelamis": "tuna_dish",
+    "Lutjanus campechanus": "snapper_dish",
+    "Lutjanus griseus": "snapper_dish",
+    "Epinephelus itajara": "grouper_dish",
+    "Epinephelus morio": "grouper_dish",
+    "Ictalurus punctatus": "catfish_dish",
+    "Ameiurus melas": "catfish_dish"
+  }
+}
