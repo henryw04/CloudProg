@@ -3,91 +3,91 @@
     "salmon_dish": [
       {
         "name": "Teriyaki Glazed Salmon",
-        "image_url": "https://picsum.photos/id/1016/600/400"
+        "image_url": "food_pics/Teriyaki-Glazed-Salmon.jpg"
       },
       {
         "name": "Lemon-Dill Baked Salmon",
-        "image_url": "https://picsum.photos/id/292/600/400"
+        "image_url": "food_pics/Lemon-Dill-Baked-Salmon.jpg"
       }
     ],
     "trout_dish": [
       {
         "name": "Pan-Seared Trout with Brown Butter",
-        "image_url": "https://picsum.photos/id/870/600/400"
+        "image_url": "food_pics/Pan-Seared-Trout-with-Brown-Butter.jpg"
       },
       {
         "name": "Herb-Crusted Baked Trout",
-        "image_url": "https://picsum.photos/id/201/600/400"
+        "image_url": "food_pics/Herb-Crusted-Baked-Trout.jpg"
       }
     ],
     "bass_dish": [
       {
         "name": "Blackened Bass Fillets",
-        "image_url": "https://picsum.photos/id/133/600/400"
+        "image_url": "food_pics/Blackened-Bass-Fillets.jpg"
       },
       {
         "name": "Garlic Butter Bass",
-        "image_url": "https://picsum.photos/id/312/600/400"
+        "image_url": "food_pics/Garlic-Butter-Bass.jpg"
       }
     ],
     "tilapia_dish": [
       {
         "name": "Grilled Tilapia with Lemon & Herbs",
-        "image_url": "https://picsum.photos/id/1015/600/400"
+        "image_url": "food_pics/Grilled-Tilapia-with-Lemon-&-Herbs.jpg"
       },
       {
         "name": "Crispy Tilapia Tacos",
-        "image_url": "https://picsum.photos/id/292/600/400"
+        "image_url": "food_pics/Crispy-Tilapia-Tacos.jpg"
       }
     ],
     "carp_dish": [
       {
         "name": "Sweet & Sour Carp",
-        "image_url": "https://picsum.photos/id/251/600/400"
+        "image_url": "food_pics/Sweet-&-Sour-Carp.jpg"
       },
       {
         "name": "Fried Carp with Ginger",
-        "image_url": "https://picsum.photos/id/870/600/400"
+        "image_url": "food_pics/Fried-Carp-with-Ginger.jpg"
       }
     ],
     "tuna_dish": [
       {
         "name": "Seared Ahi Tuna Steak",
-        "image_url": "https://picsum.photos/id/1016/600/400"
+        "image_url": "food_pics/Seared-Ahi-Tuna-Steak.jpg"
       },
       {
         "name": "Spicy Tuna Bowl",
-        "image_url": "https://picsum.photos/id/292/600/400"
+        "image_url": "food_pics/Spicy-Tuna-Bowl.jpg"
       }
     ],
     "snapper_dish": [
       {
         "name": "Grilled Red Snapper",
-        "image_url": "https://picsum.photos/id/133/600/400"
+        "image_url": "food_pics/Grilled-Red-Snapper.jpg"
       },
       {
         "name": "Snapper Veracruz Style",
-        "image_url": "https://picsum.photos/id/312/600/400"
+        "image_url": "food_pics/Snapper-Veracruz-Style.jpg"
       }
     ],
     "grouper_dish": [
       {
         "name": "Blackened Grouper Sandwich",
-        "image_url": "https://picsum.photos/id/1015/600/400"
+        "image_url": "food_pics/Blackened-Grouper-Sandwich.jpg"
       },
       {
         "name": "Baked Grouper with Tomatoes",
-        "image_url": "https://picsum.photos/id/201/600/400"
+        "image_url": "food_pics/Baked-Grouper-with-Tomatoes.jpg"
       }
     ],
     "catfish_dish": [
       {
         "name": "Southern Fried Catfish",
-        "image_url": "https://picsum.photos/id/870/600/400"
+        "image_url": "food_pics/Southern-Fried-Catfish.jpg"
       },
       {
         "name": "Catfish Po' Boy",
-        "image_url": "https://picsum.photos/id/292/600/400"
+        "image_url": "food_pics/Catfish-Po'-Boy.jpg"
       }
     ]
   },
