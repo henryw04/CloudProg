@@ -107,7 +107,7 @@ def main():
             else:
                 # Make prediction
                 with st.spinner("Analyzing image..."):
-                    st.image("spinner.gif", width="content")
+                    st.image("spinfish.gif", width="content")
                     time.sleep(1)  # Simulate processing time
                 try:
                     # Extract features
