@@ -90,6 +90,9 @@ def main():
                 - Size: {image.shape[1]} x {image.shape[0]} pixels
                 - Format: {uploaded_file.type}
                 """)
+        else:
+            st.image("spinfish.gif", caption="Uploaded Image", width="stretch")
+
 
     with col2:
         st.header("🔬 Prediction Results")
@@ -107,153 +110,151 @@ def main():
             else:
                 # Make prediction
                 with st.spinner("Analyzing image..."):
-                    st.image("spinfish.gif", width="content")
-                    time.sleep(1)  # Simulate processing time
-                try:
-                    # Extract features
-                    features = read2rgb(temp_path)
-                    if features is None:
-                        st.error("Failed to read image")
-                    else:
-                        prediction = model.inference_numpy(features)
-
-                        # Clean up temp file
-                        if os.path.exists(temp_path):
-                            os.remove(temp_path)
-
-                        # Display results
-                        confidence = prediction[0]["accuracy"] * 100
-                        sysName = prediction[0]["name"]
-                        commonName = fish_dict.get(sysName, "Unknown")
-
-                        if confidence >= 50:
-                            st.success(
-                                f" Predicted Class: {commonName}\n\n" 
-                                f" (System Name: {sysName})"
-                                ,icon="✅"
-                            )
-                            st.metric("Confidence", f"{confidence:.2f}%")
+                    try:
+                        # Extract features
+                        features = read2rgb(temp_path)
+                        if features is None:
+                            st.error("Failed to read image")
                         else:
-                            st.warning(
-                                f" Low Confidence: {confidence:.2f}%\n\n"
-                                f" Predicted: {commonName}\n\n"
-                                f" (System Name: {sysName})"
-                                ,icon="⚠️"
+                            prediction = model.inference_numpy(features)
+
+                            # Clean up temp file
+                            if os.path.exists(temp_path):
+                                os.remove(temp_path)
+
+                            # Display results
+                            confidence = prediction[0]["accuracy"] * 100
+                            sysName = prediction[0]["name"]
+                            commonName = fish_dict.get(sysName, "Unknown")
+
+                            if confidence >= 50:
+                                st.success(
+                                    f" Predicted Class: {commonName}\n\n" 
+                                    f" (System Name: {sysName})"
+                                    ,icon="✅"
+                                )
+                                st.metric("Confidence", f"{confidence:.2f}%")
+                            else:
+                                st.warning(
+                                    f" Low Confidence: {confidence:.2f}%\n\n"
+                                    f" Predicted: {commonName}\n\n"
+                                    f" (System Name: {sysName})"
+                                    ,icon="⚠️"
+                                )
+
+                            # Probability distribution
+                            st.subheader("📊 Probability Distribution")
+                            CLASS_NAMES = [res["name"] for res in prediction]
+                            probabilities = np.array(
+                                [res["accuracy"] for res in prediction]
                             )
 
-                        # Probability distribution
-                        st.subheader("📊 Probability Distribution")
-                        CLASS_NAMES = [res["name"] for res in prediction]
-                        probabilities = np.array(
-                            [res["accuracy"] for res in prediction]
-                        )
+                            # Create dataframe for display
+                            prob_data = {
+                                "Class": CLASS_NAMES,
+                                "Probability (%)": [
+                                    f"{p*100:.2f}" for p in probabilities
+                                ],
+                                "Confidence": probabilities,
+                            }
 
-                        # Create dataframe for display
-                        prob_data = {
-                            "Class": CLASS_NAMES,
-                            "Probability (%)": [
-                                f"{p*100:.2f}" for p in probabilities
-                            ],
-                            "Confidence": probabilities,
-                        }
+                            # Display as table with color coding
+                            st.dataframe(
+                                prob_data,
+                                column_config={
+                                    "Class": "Fish Class",
+                                    "Probability (%)": "Probability",
+                                    "Confidence": st.column_config.ProgressColumn(
+                                        "Confidence Score",
+                                        format="%.4f",
+                                        min_value=0,
+                                        max_value=1,
+                                    ),
+                                },
+                                hide_index=True,
+                                width="stretch",
+                            )
 
-                        # Display as table with color coding
-                        st.dataframe(
-                            prob_data,
-                            column_config={
-                                "Class": "Fish Class",
-                                "Probability (%)": "Probability",
-                                "Confidence": st.column_config.ProgressColumn(
-                                    "Confidence Score",
-                                    format="%.4f",
-                                    min_value=0,
-                                    max_value=1,
-                                ),
-                            },
-                            hide_index=True,
-                            width="stretch",
-                        )
+                            # Probability bar chart
+                            fig, ax = plt.subplots(figsize=(10, 6))
+                            colors = [
+                                "#2ecc71" if i == prediction else "#95a5a6"
+                                for i in range(len(CLASS_NAMES))
+                            ]
+                            bars = ax.bar(
+                                CLASS_NAMES,
+                                probabilities * 100,
+                                color=colors,
+                                edgecolor="black",
+                                linewidth=0.5,
+                            )
 
-                        # Probability bar chart
-                        fig, ax = plt.subplots(figsize=(10, 6))
-                        colors = [
-                            "#2ecc71" if i == prediction else "#95a5a6"
-                            for i in range(len(CLASS_NAMES))
-                        ]
-                        bars = ax.bar(
-                            CLASS_NAMES,
-                            probabilities * 100,
-                            color=colors,
-                            edgecolor="black",
-                            linewidth=0.5,
-                        )
-
-                        ax.set_ylabel("Probability (%)", fontsize=12)
-                        ax.set_title(
-                            "Classification Probabilities",
-                            fontsize=14,
-                            fontweight="bold",
-                        )
-                        ax.set_ylim(0, 100)
-                        ax.axhline(
-                            y=50,
-                            color="red",
-                            linestyle="--",
-                            linewidth=2,
-                            label="Threshold (50%)",
-                        )
-
-                        # Add value labels on bars
-                        for bar, prob in zip(bars, probabilities):
-                            height = bar.get_height()
-                            ax.text(
-                                bar.get_x() + bar.get_width() / 2.0,
-                                height,
-                                f"{prob*100:.1f}%",
-                                ha="center",
-                                va="bottom",
-                                fontsize=9,
+                            ax.set_ylabel("Probability (%)", fontsize=12)
+                            ax.set_title(
+                                "Classification Probabilities",
+                                fontsize=14,
                                 fontweight="bold",
                             )
+                            ax.set_ylim(0, 100)
+                            ax.axhline(
+                                y=50,
+                                color="red",
+                                linestyle="--",
+                                linewidth=2,
+                                label="Threshold (50%)",
+                            )
 
-                        plt.xticks(rotation=45, ha="right")
-                        plt.legend()
-                        plt.tight_layout()
-                        plt.grid(axis="y", alpha=0.3)
-                        st.pyplot(fig)
+                            # Add value labels on bars
+                            for bar, prob in zip(bars, probabilities):
+                                height = bar.get_height()
+                                ax.text(
+                                    bar.get_x() + bar.get_width() / 2.0,
+                                    height,
+                                    f"{prob*100:.1f}%",
+                                    ha="center",
+                                    va="bottom",
+                                    fontsize=9,
+                                    fontweight="bold",
+                                )
 
-                        # Suggested Dishes Section
-                        st.markdown("---")
-                        st.subheader("🍽️ Suggested Dishes")
-                        st.caption(f"Based on **{commonName}** ({sysName})")
+                            plt.xticks(rotation=45, ha="right")
+                            plt.legend()
+                            plt.tight_layout()
+                            plt.grid(axis="y", alpha=0.3)
+                            st.pyplot(fig)
 
-                        dishes_data = load_dishes()[0]
+                            # Suggested Dishes Section
+                            st.markdown("---")
+                            st.subheader("🍽️ Suggested Dishes")
+                            st.caption(f"Based on **{commonName}** ({sysName})")
 
-                        dish_key = dishes_data.get("fish_to_dishes", {}).get(sysName)
+                            dishes_data = load_dishes()[0]
 
-                        if dish_key and dish_key in dishes_data.get("dishes", {}):
-                            fish_dishes = dishes_data["dishes"][dish_key][:2]
-                        else:
-                            fish_dishes = [{"name": "This is not editable", "image_url": "https://picsum.photos/id/870/600/400"}]
+                            dish_key = dishes_data.get("fish_to_dishes", {}).get(sysName)
 
-                        if len(fish_dishes) == 1 and fish_dishes[0]["name"] == "This is not editable":
-                            st.info("🍽️ This species is currently not configured for recipe suggestions.")
-                            st.image(fish_dishes[0]["image_url"], caption="This is not editable", width="stretch")
-                        else:
-                            dcol1, dcol2 = st.columns(2)
-                            for idx, dish in enumerate(fish_dishes):
-                                with (dcol1 if idx == 0 else dcol2):
-                                    st.image(dish["image_url"], caption=dish["name"], width="stretch")
+                            if dish_key and dish_key in dishes_data.get("dishes", {}):
+                                fish_dishes = dishes_data["dishes"][dish_key][:2]
+                            else:
+                                fish_dishes = [{"name": "This is not editable", "image_url": "https://picsum.photos/id/870/600/400"}]
 
-                except Exception as e:
-                    st.error(f"Prediction error: {str(e)}")
-                    st.error(f"Error type: {type(e).__name__}")
-                    st.info("""
-                    **Troubleshooting:**
-                    1. Ensure model was trained with same feature extraction
-                    2. Check that class names match model classes
-                    3. Verify model file is not corrupted
-                    """)
+                            if len(fish_dishes) == 1 and fish_dishes[0]["name"] == "This is not editable":
+                                st.info("🍽️ This species is currently not configured for recipe suggestions.")
+                                st.image(fish_dishes[0]["image_url"], caption="This is not editable", width="stretch")
+                            else:
+                                dcol1, dcol2 = st.columns(2)
+                                for idx, dish in enumerate(fish_dishes):
+                                    with (dcol1 if idx == 0 else dcol2):
+                                        st.image(dish["image_url"], caption=dish["name"], width="stretch")
+
+                    except Exception as e:
+                        st.error(f"Prediction error: {str(e)}")
+                        st.error(f"Error type: {type(e).__name__}")
+                        st.info("""
+                        **Troubleshooting:**
+                        1. Ensure model was trained with same feature extraction
+                        2. Check that class names match model classes
+                        3. Verify model file is not corrupted
+                        """)
         else:
             st.info("""
             👆 **Please upload an image to see predictions**
